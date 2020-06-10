@@ -39,7 +39,8 @@
 </select>
 </ul>
 
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="margin-left:10px">Nuevo contacto</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" style="margin-left:10px">Nuevo contacto</button> 
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#dataModal" style="margin-left:10px">Datos</button>
           </div>
       </nav>
     </header>
@@ -238,12 +239,19 @@
           $("#resultadoAES").select();
           document.execCommand('copy');
       });
+       $("#copyPrivateKey").click(function(){
+          $("#private-key").select();
+          document.execCommand('copy');
+      });
       eel.frontReady();
     });
 </script>
 <script>
 function ActualizarCifrarTextoRSA(resultado) {
   $("#resultadoCifrarRSA").val(resultado);
+}
+function ActualizarPrivate(private){
+  $("#private-key").val(private);
 }
 function ActualizarAES(llave){
   $("#resultadoAES").val(llave);
@@ -273,6 +281,7 @@ function ActualizarContactos(contactos){
 }
 eel.expose(ActualizarContactos);                 // Expose this function to Python
 eel.expose(ActualizarCifrarTextoRSA);               // Expose this function to Python
+eel.expose(ActualizarPrivate);               // Expose this function to Python
 eel.expose(ActualizarCifrarTexto);               // Expose this function to Python
 eel.expose(ActualizarDescifrarTextoRSA);
 eel.expose(ActualizarAES);               // Expose this function to Python
@@ -306,6 +315,32 @@ eel.expose(ActualizarDescifrarTexto);               // Expose this function to P
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardar">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL PRIVATE KEY -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dataModalLabel">Nuevo contacto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Private Key</label>
+            <div class="textarea-container">
+            <textarea class="form-control" id="private-key" wrap="off" rows="5" readonly></textarea>
+            <button id="copyPrivateKey" class="btn"><i class="fa fa-file-text-o"></i></button>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
       </div>
     </div>
   </div>

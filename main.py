@@ -43,7 +43,7 @@ def cifrarMensaje(mensaje,destinatario):
 @eel.expose
 def descifrarMensaje(ct,emisor):
     if not emisor in contactos:
-        resultado = "Destinatario no encontrado :("
+        result = "Destinatario no encontrado :("
     result = re.search('--- INICIO MENSAJE CIFRADO ---(.|\s)+--- FIN MENSAJE CIFRADO ---', ct,re.M)
     if result == None:
         print("ummm")
@@ -70,6 +70,9 @@ def frontReady():
         eel.ActualizarContactos(["No hay contactos"])
     else:
         eel.ActualizarContactos(list(contactos.keys()))
+        with open('data/private.pem','r') as f:
+          data = f.read()
+        eel.ActualizarPrivate(data)
 
 @eel.expose
 def nuevoContacto(nombre,RSAKey,AESKey):
