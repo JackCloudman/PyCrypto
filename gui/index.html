@@ -11,6 +11,7 @@
     <title>PyCrypto - Desktop</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer-navbar/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -80,8 +81,14 @@
       <textarea class="form-control" id="textoCifrar" rows="5"></textarea><br>
     <center>  <button type="submit" class="btn btn-success" >Cifrar y firmar</button></center>
     </form>
+
     <label for="resultadoCifrar">Resultado</label>
-   <textarea class="form-control" id="resultadoCifrar" rows="4" disabled="true"></textarea><br>
+
+    <div class="textarea-container">
+      <textarea class="form-control" id="resultadoCifrar" rows="4" readonly></textarea>
+      <button id=copyresultadoCifrar class="btn"><i class="fa fa-file-text-o"></i></button>
+    </div>
+
   </div>
   <!-- Descifrar mensaje-->
   <div class="tab-pane fade" id="descifrarmensaje" role="tabpanel" aria-labelledby="descifrarmensaje-tab"><br>
@@ -104,7 +111,12 @@
     <center>  <button type="submit" class="btn btn-success" >Cifrar</button></center>
     </form>
     <label for="resultadoCifrarRSA">Resultado</label>
-   <textarea class="form-control" id="resultadoCifrarRSA" rows="4" disabled="true"></textarea><br>
+
+    <div class="textarea-container">
+      <textarea class="form-control" id="resultadoCifrarRSA" rows="4" readonly></textarea>
+      <button id=copyresultadoCifrarRSA class="btn"><i class="fa fa-file-text-o"></i></button>
+    </div>
+
    <hr>
    <h3> Descifrar RSA</h3>
    <form id="descifrarTextoRSA">
@@ -120,7 +132,11 @@
     <br>
       <form id="generarAES">
          <label for="resultadoAES">Generador de llave AES</label>
-        <textarea class="form-control" id="resultadoAES" rows="1" disabled="true"></textarea><br>
+        <div class="textarea-container">
+          <textarea class="form-control" id="resultadoAES" rows="1" readonly></textarea>
+          <button type="button" id=copyresultadoCifrarAES class="btn"><i class="fa fa-file-text-o"></i></button>
+        </div>
+
         <button type="sumbit" class="btn btn-success" >Generar</button>
       </form>
   </div>
@@ -209,6 +225,19 @@
         }
         eel.nuevoContacto(nombre,rsakey,aeskey);
       });
+
+      $("#copyresultadoCifrar").click(function(){
+          $("#resultadoCifrar").select();
+          document.execCommand('copy');
+      });
+      $("#copyresultadoCifrarRSA").click(function(){
+          $("#resultadoCifrarRSA").select();
+          document.execCommand('copy');
+      });
+      $("#copyresultadoCifrarAES").click(function(){
+          $("#resultadoAES").select();
+          document.execCommand('copy');
+      });
       eel.frontReady();
     });
 </script>
@@ -234,6 +263,8 @@ function ActualizarDescifrarTexto(resultado,valido) {
   $("#resultadoDescifrar").val(resultado);
   $("#resultadoDescifrar").css("background-color",color);
 }
+
+
 function ActualizarContactos(contactos){
   $('#destinatario')
     .find('option')
