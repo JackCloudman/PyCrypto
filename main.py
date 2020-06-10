@@ -66,13 +66,13 @@ def generarAESKey():
 
 @eel.expose
 def frontReady():
+    with open('data/public.pem','r') as f:
+        data = f.read()
+    eel.ActualizarPublic(data)
     if not contactos:
         eel.ActualizarContactos(["No hay contactos"])
     else:
         eel.ActualizarContactos(list(contactos.keys()))
-        with open('data/private.pem','r') as f:
-          data = f.read()
-        eel.ActualizarPrivate(data)
 
 @eel.expose
 def nuevoContacto(nombre,RSAKey,AESKey):
